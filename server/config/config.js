@@ -17,7 +17,8 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/cafe';
 } else {
-    urlDB = 'mongodb+srv://serch:R6Kp2mEtEilC2TwD@cluster0-v0gc6.mongodb.net/cafe';
+    // MONGO_URI: es la variable de entorno de heroku para ocultar la URL en Git
+    urlDB = process.env.MONGO_URI;
 }
 
 process.env.URLDB = urlDB;
