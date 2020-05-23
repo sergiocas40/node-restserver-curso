@@ -1,17 +1,24 @@
-/*
-    Configuracion para deteminar si nuestra aplicacion esta corriendo
-    en produccion o desarrollo, si es desarrollo asignamos el puerto 3000
-    si esta en produccion dejaremos el puerto que el servidor asigno. 
-*/
-
+// Configuracion del puerto
 process.env.PORT = process.env.PORT || 3000;
+//////////////////////////////
 
-// Entorno
-// Determinar si estamos en produccion o en local
+/// ENTORNO - validar si esta en produccion o en desarrollo
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
+/////////////////////////////
 
+
+
+// Guardar el secret y la fecha de caducidad del token que se envia al usuario
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+
+process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
+//////////////////////////////
+
+
+
+// Determinar si estamos en produccion o en local para asignar si la aplicacion 
+// se conectara a la BD de la nube o local.
 // Dependiendo del valor de process.env.NODE_ENV determinamos la URL para la coenxion a la BD
-
 let urlDB;
 
 if (process.env.NODE_ENV === 'dev') {
@@ -22,3 +29,4 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.URLDB = urlDB;
+//////////////////////////////

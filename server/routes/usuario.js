@@ -2,13 +2,14 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/usuario');
+const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion');
 
 const app = express();
 
 // Definimos las respuestas cuando se solicita la url localhost:3000/
 
 // Peticion GET
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, function(req, res) {
 
     // Recibimos el parametro desde
     // El cual nos indica desde que pagina el usuario quiere que se muestren los registros
@@ -54,7 +55,7 @@ app.get('/usuario', function(req, res) {
 });
 
 // Peticion POST
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     // Recibimos un json con los parametros incluidos en la peticion
     let body = req.body;
@@ -90,7 +91,7 @@ app.post('/usuario', function(req, res) {
 });
 
 // Peticion PUT
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     // Recibimos el id de la URL
     let id = req.params.id;
@@ -122,7 +123,7 @@ app.put('/usuario/:id', function(req, res) {
 });
 
 // Peticion DELETE
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     // Recibimos el id a eliminar/modificar que envian en la URL
     let id = req.params.id;

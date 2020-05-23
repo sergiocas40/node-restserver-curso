@@ -17,8 +17,8 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// Requerimos el archivo routes/usuario.js para incluir las rutas de get, post, put y delete
-app.use(require('./routes/usuario'));
+// Requerimos el archivo routes/index.js para incluir las rutas de login y usuario
+app.use(require('./routes/index'));
 
 // Conexion a la base de datos
 mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err, res) => {
