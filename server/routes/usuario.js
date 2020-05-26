@@ -54,7 +54,7 @@ app.get('/usuario', verificaToken, function(req, res) {
 
 });
 
-// Peticion POST
+// Peticion POST  
 app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     // Recibimos un json con los parametros incluidos en la peticion
