@@ -9,7 +9,7 @@ let verificaToken = (req, res, next) => {
     // Recibimos el token que viene en el header de la peticion.
     let token = req.get('token');
 
-    // Vericar token
+    // Verificar token
     jwt.verify(token, process.env.SEED, (err, decoded) => {
 
         // parametros: token            = es el token recibido
@@ -44,11 +44,13 @@ let verificaToken = (req, res, next) => {
 let verificaAdmin_Role = (req, res, next) => {
 
     let usuario = req.usuario;
-    // req.usuario sedefinio en verificaToken
+    // req.usuario se definio en verificaToken
 
     // Verificamos que sea ADMIN_ROLE
     if (usuario.role == 'ADMIN_ROL') {
+
         next(); // Se sigue ejecutando el servicio de routes/usuario        
+
     } else {
 
         // Madamos error si no es ADMIN_ROL y no se ejecita el servicio
@@ -60,8 +62,6 @@ let verificaAdmin_Role = (req, res, next) => {
         });
     }
 }
-
-
 
 module.exports = {
     verificaToken,

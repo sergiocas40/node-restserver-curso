@@ -9,7 +9,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 
 // Guardar el secret y la fecha de caducidad del token que se envia al usuario
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = "48h";
 
 process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
 //////////////////////////////

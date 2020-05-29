@@ -1,25 +1,32 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+
+// Filtrar los datos a actualizar en el PUT
 const _ = require('underscore');
+
 const Usuario = require('../models/usuario');
+
 const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion');
 
 const app = express();
 
+
+
 // Definimos las respuestas cuando se solicita la url localhost:3000/
 
 // Peticion GET
+// Para validar Token llamar funcion veirficaToken que esta en middlewares/autenticacion
 app.get('/usuario', verificaToken, function(req, res) {
 
-    // Recibimos el parametro desde
-    // El cual nos indica desde que pagina el usuario quiere que se muestren los registros
+    // Recibimos el parametro desde el cual nos indica
+    // desde que pagina el usuario quiere que se muestren los registros
     // Si no indica algo, se mostraran los primeros cinco
     let desde = req.query.desde || 0;
 
     // Convertimos a numero
     desde = Number(desde);
 
-    // De la misma forma controamos el limite de registros a mostrar
+    // De la misma forma controlamos el limite de registros a mostrar
     let limite = req.query.limite || 0;
     limite = Number(limite)
 
@@ -30,6 +37,7 @@ app.get('/usuario', verificaToken, function(req, res) {
         .skip(desde) // Salta cinco posiciones
         .limit(limite) // Muestro cinco registros
         .exec((err, usuarios) => {
+            
             // Si hay un error
             if (err) {
                 return res.status(400).json({
@@ -54,7 +62,7 @@ app.get('/usuario', verificaToken, function(req, res) {
 
 });
 
-// Peticion POST  
+// Peticion POST, crear un usuario 
 app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     // Recibimos un json con los parametros incluidos en la peticion
@@ -81,6 +89,7 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
         // No mostrar el password
         // usuarioDB.password = null;
 
+        // Mostramos el usuario guardado
         res.json({
             ok: true,
             usuario: usuarioDB
@@ -96,7 +105,8 @@ app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) 
     // Recibimos el id de la URL
     let id = req.params.id;
 
-    // Recibimos el objeto que contiene la actualizacion similar al post
+    // Recibimos el objeto que contiene los campos e indicamos cuales 
+    // son los campos permitidos para actualizar
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
     // Llamamos al Schema de la base datos para buscar y actualizar mediante el id
