@@ -10,13 +10,11 @@ const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticac
 
 const app = express();
 
-
-
 // Definimos las respuestas cuando se solicita la url localhost:3000/
 
 // Peticion GET
-// Para validar Token llamar funcion veirficaToken que esta en middlewares/autenticacion
-app.get('/usuario', verificaToken, function(req, res) {
+// Para validar Token llamar funcion veirficaToken que esta en middlewares/autenticacion verificaToken
+app.get('/usuario', function(req, res) {
 
     // Recibimos el parametro desde el cual nos indica
     // desde que pagina el usuario quiere que se muestren los registros
