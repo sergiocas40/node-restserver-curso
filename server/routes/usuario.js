@@ -14,6 +14,7 @@ const app = express();
 
 // Peticion GET
 // Para validar Token llamar funcion veirficaToken que esta en middlewares/autenticacion verificaToken
+// verificaToken,
 app.get('/usuario', function(req, res) {
 
     // Recibimos el parametro desde el cual nos indica

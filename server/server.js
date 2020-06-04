@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
 // Agregamos el middleware que mostrara la pagina de Sig In 
-//app.use(express.static(path.resolve(__dirname, '../public')));
+// app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Requerimos el archivo routes/index.js para incluir las rutas de login y usuario
 app.use(require('./routes/index'));
